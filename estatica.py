@@ -2,6 +2,17 @@ import math
 
 
 class Vector:
+    """
+    Cria um vetor em 3 dimensões e cobre a maioria das operações 
+    com vetor como soma, substração , modulo e multiplicação
+    Além de produto escalar e vetorial 
+    TODO Difenciar o sinal de * para int e vetor 
+                no momento o sinal so pode ser usada para multiplicar um vetor por um inteiro 
+                e a ordem esta alterando o resultado
+         Criar um sinal proprio para multiplicação vetorial
+
+    """
+
     def __init__(self, x, y, z) -> None:
         self.x = x
         self.y = y
@@ -46,7 +57,14 @@ class Vector:
         k = self.z*other.z
         return i+j+k
 
+    def produto_vetorial(self, other):
+        k = self.x*other.y - self.y*other.x
+        i = self.y*other.z - self.z*other.y
+        j = self.z*other.x - self.x*other.z
+        return Vector(i, j, k)
+
     def achar_angulo(self, other):
+        "Calcula o angulo entre dois vetores "
         divisao = (self.produto_escalar(other) / (self.modulo() *
                    other.modulo()))  # produto escalar / mult modulos
         angulo = math.acos(divisao)
@@ -54,6 +72,13 @@ class Vector:
 
 
 class Força(Vector):
+    """
+    Transforma um vetor qualquer em um vetor de uma força 
+    tento informações de forma mais direta alem de coisa unicas 
+    como o angulo estre as componentes 
+
+    """
+
     def __init__(self, vector) -> None:
         self.resultante = vector.modulo()
         self.vector = vector
@@ -74,3 +99,5 @@ plano_x = Vector(1, 0, 0)
 plano_y = Vector(0, 1, 0)
 
 plano_z = Vector(0, 0, 1)
+
+g = 9.81
